@@ -1,0 +1,14 @@
+---
+- name: Install SonarQube using Docker
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Run SonarQube container
+      community.docker.docker_container:
+        name: sonarqube
+        image: sonarqube:lts-community
+        state: started
+        restart_policy: unless-stopped
+        published_ports:
+          - "9000:9000"
